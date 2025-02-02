@@ -1,0 +1,3 @@
+name: 00-solution-civo-go
+runtime: go
+description: The Civo Cluster for the demo

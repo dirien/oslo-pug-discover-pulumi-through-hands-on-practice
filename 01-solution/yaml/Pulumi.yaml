@@ -1,0 +1,106 @@
+name: 01-solution
+description: A minimal Pulumi YAML program
+runtime: yaml
+
+variables:
+  title: ${nginxTitle}
+  body: ${nginxBody}
+
+resources:
+  kubeconfig:
+    type: pulumi:pulumi:StackReference
+    properties:
+      name: dirien/00-solution-civo-csharp/dev
+
+  do_k8s_provider:
+    type: pulumi:providers:kubernetes
+    properties:
+      enableServerSideApply: true
+      kubeconfig: ${kubeconfig.outputs["kubeconfig"]}
+
+  nginxConfigMap:
+    type: kubernetes:core/v1:ConfigMap
+    properties:
+      metadata:
+        name: nginx-config
+      data:
+        index.html: |
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <title>${title}</title>
+          </head>
+          <body>
+              <h1>${body}</h1>
+          </body>
+          </html>
+    options:
+      provider: ${do_k8s_provider}
+
+  nginxDeployment:
+    type: kubernetes:apps/v1:Deployment
+    properties:
+      metadata:
+        name: nginx-deployment
+        annotations:
+          reloader.stakater.com/auto: "true"
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            app: nginx
+        template:
+          metadata:
+            labels:
+              app: nginx
+          spec:
+            containers:
+            - name: nginx
+              image: nginx:latest
+              ports:
+              - containerPort: 80
+              volumeMounts:
+              - name: nginx-html
+                mountPath: /usr/share/nginx/html/index.html
+                subPath: index.html
+            volumes:
+            - name: nginx-html
+              configMap:
+                name: nginx-config
+                items:
+                - key: index.html
+                  path: index.html
+    options:
+      provider: ${do_k8s_provider}
+
+  nginxService:
+    type: kubernetes:core/v1:Service
+    properties:
+      metadata:
+        name: nginx-service
+      spec:
+        selector:
+          app: nginx
+        type: LoadBalancer
+        ports:
+        - port: 8080
+          targetPort: 80
+    options:
+      provider: ${do_k8s_provider}
+
+  reloader:
+    type: kubernetes:helm.sh/v3:Release
+    properties:
+      chart: reloader
+      namespace: reloader
+      createNamespace: true
+      repositoryOpts:
+        repo: https://stakater.github.io/stakater-charts
+      values:
+        reloader:
+          reloadOnCreate: true
+    options:
+      provider: ${do_k8s_provider}
+
+outputs:
+  serviceName: ${nginxService.metadata.name}

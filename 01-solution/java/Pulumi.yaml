@@ -1,0 +1,3 @@
+name: 01-solution
+runtime: java
+description: A minimal Pulumi YAML program

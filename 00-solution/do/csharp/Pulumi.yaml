@@ -1,0 +1,3 @@
+name: 00-solution-do-csharp
+runtime: dotnet
+description: A minimal DigitalOcean Pulumi YAML program

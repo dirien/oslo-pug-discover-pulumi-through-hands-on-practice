@@ -1,0 +1,17 @@
+title: "Discover Pulumi Through Hands-On Practice"
+author: Engin Diri
+
+markdown: kramdown
+
+kramdown:
+  input: GFM
+
+plugins:
+- jekyll-relative-links
+relative_links:
+  enabled: true
+  collections: true
+include:
+- 00-create-kubernetes-cluster.md
+- 01-create-nginx-deployment.md
+- 02-housekeeping.md

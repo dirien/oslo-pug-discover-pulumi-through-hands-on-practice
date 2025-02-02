@@ -1,0 +1,25 @@
+name: 00-solution-do-yaml
+description: A minimal DigitalOcean Pulumi YAML program
+runtime: yaml
+
+variables:
+  clusterRegion: "fra1"
+  nodePoolName: "default"
+  nodeCount: 1
+  version: 1.31.1-do.5
+
+resources:
+  do-cluster:
+    type: digitalocean:KubernetesCluster
+    properties:
+      region: "${clusterRegion}"
+      version: "${version}"
+      destroyAllAssociatedResources: true
+      nodePool:
+        name: "${nodePoolName}"
+        size: "s-2vcpu-2gb"
+        nodeCount: "${nodeCount}"
+
+outputs:
+  name: "${do-cluster.name}"
+  kubeconfig: "${do-cluster.kubeConfigs[0].rawConfig}"
