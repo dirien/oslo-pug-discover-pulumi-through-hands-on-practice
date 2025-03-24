@@ -94,7 +94,7 @@ variables:
   clusterRegion: "fra1"
   nodePoolName: "default"
   nodeCount: 1
-  version: 1.31.1-do.5
+  version: 1.32.2-do.0
 
 resources:
   do-cluster:
@@ -128,7 +128,7 @@ outputs:
         var clusterRegion = "fra1";
         var nodePoolName = "default";
         var nodeCount = 1;
-        var version = "1.31.1-do.5";
+        var version = "1.32.2-do.0";
     
         var doCluster = new DigitalOcean.KubernetesCluster("do-cluster", new()
         {
@@ -167,7 +167,7 @@ outputs:
             clusterRegion := "fra1"
             nodePoolName := "default"
             nodeCount := 1
-            version := "1.31.1-do.5"
+            version := "1.32.2-do.0"
             doCluster, err := digitalocean.NewKubernetesCluster(ctx, "do-cluster", &digitalocean.KubernetesClusterArgs{
                 Region:                        pulumi.String(clusterRegion),
                 Version:                       pulumi.String(version),
@@ -211,7 +211,7 @@ outputs:
                 final var clusterRegion = "fra1";
                 final var nodePoolName = "default";
                 final var nodeCount = 1;
-                final var version = "1.31.1-do.5";
+                final var version = "1.32.2-do.0";
         
                 var doCluster = new KubernetesCluster("do-cluster", KubernetesClusterArgs.builder()
                     .region(clusterRegion)
@@ -241,7 +241,7 @@ outputs:
         cluster_region = "fra1"
         node_pool_name = "default"
         node_count = 1
-        version = "1.31.1-do.5"
+        version = "1.32.2-do.0"
         do_cluster = digitalocean.KubernetesCluster("do-cluster",
             region=cluster_region,
             version=version,
@@ -265,7 +265,7 @@ outputs:
     const clusterRegion = "fra1";
     const nodePoolName = "default";
     const nodeCount = 1;
-    const version = "1.31.1-do.5";
+    const version = "1.32.2-do.0";
     const doCluster = new digitalocean.KubernetesCluster("do-cluster", {
         region: clusterRegion,
         version: version,

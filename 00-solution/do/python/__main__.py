@@ -4,7 +4,7 @@ import pulumi_digitalocean as digitalocean
 cluster_region = "fra1"
 node_pool_name = "default"
 node_count = 1
-version = "1.31.1-do.5"
+version = "1.32.2-do.0"
 do_cluster = digitalocean.KubernetesCluster("do-cluster",
     region=cluster_region,
     version=version,

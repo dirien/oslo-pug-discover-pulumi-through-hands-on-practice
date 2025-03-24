@@ -10,7 +10,7 @@ func main() {
 		clusterRegion := "fra1"
 		nodePoolName := "default"
 		nodeCount := 1
-		version := "1.31.1-do.5"
+		version := "1.32.2-do.0"
 		doCluster, err := digitalocean.NewKubernetesCluster(ctx, "do-cluster", &digitalocean.KubernetesClusterArgs{
 			Region:                        pulumi.String(clusterRegion),
 			Version:                       pulumi.String(version),

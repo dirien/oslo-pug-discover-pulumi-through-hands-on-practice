@@ -15,7 +15,7 @@ public class App {
         final var clusterRegion = "fra1";
         final var nodePoolName = "default";
         final var nodeCount = 1;
-        final var version = "1.31.1-do.5";
+        final var version = "1.32.2-do.0";
 
         var doCluster = new KubernetesCluster("do-cluster", KubernetesClusterArgs.builder()
             .region(clusterRegion)
